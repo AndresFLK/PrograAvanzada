@@ -1,5 +1,6 @@
 ﻿using Aplication.Students;
 using Domain.Students;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +31,22 @@ namespace API.Controllers
 
             return (IList<Student>)StatusCode
                 (StatusCodes.Status500InternalServerError, null);
+
+
+        }
+
+        [HttpGet("withCourses")]
+        public IActionResult ListWithCourses()
+        {
+
+            var result = _service.List(true);
+
+            if (result.IsSuccess)
+            {
+                return Ok(result.Value);
+            }
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
 
 
         }
@@ -85,6 +102,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
+        [DisableCors]
         public IActionResult Delete([FromQuery] int id) 
         {
             var result = _service.Delete(id);

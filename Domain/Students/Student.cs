@@ -1,15 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Courses;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
+using System.Text.Json.Serialization;
 
 namespace Domain.Students
 {
     
-    public class Student
+    public class Student : Entity
     {
-        
-
-        private Student() 
+        public Student() 
         { 
             
         }
@@ -46,36 +46,46 @@ namespace Domain.Students
 
 
         [Key]
-        public int Id { get; private set; }
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [StringLength(10, MinimumLength = 5)]
+        [JsonPropertyName("batch")]
         public string Batch { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [StringLength(40, MinimumLength = 2)]
+        [JsonPropertyName("firstName")]
         public string FirstName { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [StringLength(40, MinimumLength = 2)]
+        [JsonPropertyName("lastName")]
         public string LastName { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        [Range(typeof(DateTime), minimum:"1900-01-01", maximum:"2024-01-01")]
+        [Range(typeof(DateTime), minimum:"1930-01-01", maximum:"2024-12-12")]
+        [JsonPropertyName("birthDate")]
         public DateTime BirthDate { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [StringLength(150, MinimumLength = 5)]
+        [JsonPropertyName("email")]
         public string Email { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [StringLength(15, MinimumLength = 8)]
+        [JsonPropertyName("phoneNumber")]
         public string PhoneNumber { get; set; }
 
         [Required]
+        [JsonPropertyName("active")]
         public bool Active { get; set; }
 
-       
+        [JsonInclude]
+        [JsonPropertyName("courses")]
+        public List<Course> Courses { get; private set; }
     }
 }

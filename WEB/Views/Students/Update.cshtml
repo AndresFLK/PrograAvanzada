@@ -1,0 +1,43 @@
+﻿@using Domain.Students;
+@using WEB.Models;
+
+@model UpdateStudent
+
+<div class="container">
+    <form method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <input type="hidden" asp-for="@Model.Id"/>
+        <div class="mb-3">
+            <label asp-for="@Model.FirstName" class="form-label">First Name.</label>
+            <input id="firstName" asp-for="@Model.FirstName" type="text" class="form-control" aria-describedby="firstNameHelp" />
+            <span asp-validation-for="@Model.FirstName"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.LastName" class="form-label">Last Name.</label>
+            <input id="lastName" asp-for="@Model.LastName" type="text" class="form-control" aria-describedby="lastNameHelp" />
+            <span asp-validation-for="@Model.LastName"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.BirthDate" class="form-label">Birth Date.</label>
+            <input id="birthDate" asp-for="@Model.BirthDate" type="date" class="form-control" aria-describedby="birthDateHelp" />
+            <span asp-validation-for="@Model.BirthDate"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.Email" class="form-label">Email.</label>
+            <input id="email" asp-for="@Model.Email" type="email" class="form-control" aria-describedby="emailHelp" />
+            <div id="emailHelp" class="form-text">Information not shared.</div>
+            <span asp-validation-for="@Model.Email"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.PhoneNumber" class="form-label">Phone Number.</label>
+            <input id="phoneNumber" asp-for="@Model.PhoneNumber" type="phone" class="form-control" aria-describedby="phoneNumberHelp" />
+            <div id="phoneNumberHelp" class="form-text">Information not shared.</div>
+            <span asp-validation-for="@Model.PhoneNumber"></span>
+        </div>
+        @{
+            var partialModel = SaveCancelViewModel.Create(1, "/students");
+        }
+        <partial name="_SaveCancelButton" model="partialModel" />
+    </form>
+</div>

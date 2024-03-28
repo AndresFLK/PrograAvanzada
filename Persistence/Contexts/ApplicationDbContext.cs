@@ -1,4 +1,5 @@
 ﻿using Aplication.Contexts;
+using Domain.Courses;
 using Domain.Students;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,6 +19,8 @@ namespace Persistence.Contexts
         }
 
         public DbSet<Student> Students { get; set; }
+
+        public DbSet<Course> Courses { get; set; }
 
         public void Save()
         {

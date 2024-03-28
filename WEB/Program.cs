@@ -1,7 +1,29 @@
+using Aplication;
+using Aplication.Students;
+using Domain.Configuration;
+using Infrastructure;
+using Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddAplicationServices(builder.Configuration);
+
+
+var endpoints = builder.Configuration.GetSection(nameof(EndpointConfiguration)).Get<List<EndpointConfiguration>>();
+
+builder.Services.Configure<List<EndpointConfiguration>>(options => {
+    options.AddRange(endpoints);
+});   
+
+builder.Services.AddHttpClient<IStudentClient, StudentClient>((provider, client) =>
+{
+    var endpoint = endpoints.Where(s => s.Name.Equals("DefaultApi", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+    client.BaseAddress = new Uri(endpoint.Uri);
+});
 
 var app = builder.Build();
 
@@ -18,6 +40,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

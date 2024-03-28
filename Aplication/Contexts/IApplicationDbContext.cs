@@ -1,4 +1,5 @@
-﻿using Domain.Students;
+﻿using Domain.Courses;
+using Domain.Students;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Aplication.Contexts
     {
         DbSet<Student> Students { get; set; }
 
+        DbSet<Course> Courses { get; set; }
         void Save();
     }
 }

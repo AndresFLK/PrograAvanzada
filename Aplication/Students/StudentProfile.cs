@@ -12,9 +12,15 @@ namespace Aplication.Students
     {
         public StudentProfile()
         {
+
             CreateMap<CreateStudent, Student>().ForMember(destination => destination.PhoneNumber, source => source.MapFrom(s => s.MobileNumber));
 
-            CreateMap<UpdateStudent, Student>().ForMember(destination => destination.Id, source => source.Ignore());
+            CreateMap<UpdateStudent, Student>().ForMember(destination => destination.Id, source => source.MapFrom(s => s.Id));
+            
+            CreateMap<Student, UpdateStudent>();
+
+            CreateMap<Student, StudentDTO>().ConstructUsing(source => new StudentDTO(source.Id, source.Batch, string.Concat(source.FirstName, " ", source.LastName)));
+        
         }
     }
 }

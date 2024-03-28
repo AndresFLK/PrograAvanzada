@@ -21,15 +21,23 @@ namespace Aplication.Students
             
         }
 
-        public Result<IList<Student>> List()
+        public Result<IList<Student>> List(bool includeCourses = false)
         {
-            return Result.Success<IList<Student>>(_repository.GetAll());
+            return
+            includeCourses
+                ? Result.Success<IList<Student>>(_repository.GetAll(i => i.Courses))
+                : Result.Success<IList<Student>>(_repository.GetAll());
         }
 
-        public Result<Student> Get(string batch)
+        public Result<Student> Get(string batch, bool includeCourses = false)
         {
-            
-                var student = _repository.Get(s => s.Batch.Equals(batch));
+
+            var student =
+                includeCourses
+                    ? _repository.Get(s => s.Batch == batch, i => i.Courses)
+                    : _repository.Get(s => s.Batch == batch);
+
+
 
                 if (student == null)
                 {
@@ -40,10 +48,13 @@ namespace Aplication.Students
 
         }
 
-        public Result<Student> Get(int id)
+        public Result<Student> Get(int id, bool includeCourses = false)
         {
             
-                var student = _repository.Get(s => s.Id == id);
+                var student =
+                includeCourses
+                    ? _repository.Get(s => s.Id == id, i => i.Courses)
+                    : _repository.Get(s => s.Id == id); 
 
                 if (student is null)
                 {

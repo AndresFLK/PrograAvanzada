@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,6 +29,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Maintenances</button>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-item"><a asp-controller="Students" asp-action="Index">Students</a></li>
+                                        <li class="dropdown-item"><a asp-controller="Professors" asp-action="Index">Professors</a></li>
+                                        <li class="dropdown-item"><a asp-controller="Courses" asp-action="Index">Courses</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li class="dropdown-item"><a asp-controller="Enrollments" asp-action="Index">Enrollments</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        }
+               
                     </ul>
                 </div>
             </div>

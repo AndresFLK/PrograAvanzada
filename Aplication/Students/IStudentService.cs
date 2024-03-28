@@ -10,11 +10,11 @@ namespace Aplication.Students
 {
     public interface IStudentService
     {
-        Result<IList<Student>> List();
+        Result<IList<Student>> List(bool includeCourses = false);
 
-        Result<Student> Get(string batch);
+        Result<Student> Get(string batch, bool includeCourses = false);
 
-        Result<Student> Get(int id);
+        Result<Student> Get(int id, bool includeCourses = false);
 
         Result Create(CreateStudent createStudent);
 

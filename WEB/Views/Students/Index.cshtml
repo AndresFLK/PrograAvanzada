@@ -1,0 +1,45 @@
+﻿@using Domain.Students
+@model List<StudentDTO>
+
+@{
+    ViewData["Title"] = "Students";
+}
+
+
+<!----- [Insert] ---->
+<a type="button" class="btn btn-success" asp-controller="Students" asp-action="Create">Create</a>
+
+<table id="students" class="table table-striped table-hover">
+    <thead>
+        <tr class="border-bottom">
+            <th>Batch</th>
+            <th>Full Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var student in Model)
+        {
+            <tr>
+                <td>@student.Batch</td>
+                <td>@student.FullName</td>
+                <td>
+                    <a class="btn btn-info" asp-action="Update" asp-route-id="@student.Batch">Edit</a>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+

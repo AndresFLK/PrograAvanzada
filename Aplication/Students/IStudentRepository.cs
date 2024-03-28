@@ -1,4 +1,5 @@
-﻿using Domain.Students;
+﻿using Aplication.Repositories;
+using Domain.Students;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +9,7 @@ using System.Threading.Tasks;
 
 namespace Aplication.Students
 {
-    public interface IStudentRepository
+    public interface IStudentRepository : IRepositoryBase<Student>
     {
-        List<Student> GetAll();
-
-        Student Get(Expression<Func<Student, bool>> predicate);
-
-        void Insert(Student student);
-        void Update(Student student);
-
-        void Delete(Student student);
-
-        void Save();
     }
 }
